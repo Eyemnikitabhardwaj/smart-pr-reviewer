@@ -1,0 +1,17 @@
+{
+    "repository": "C:\\Users\\hp\\OneDrive\\Desktop\\smart-pr-reviewer",
+    "generated_at": "2026-07-14T04:51:14.306719",
+    "analysis": {
+        "syntax_valid": true,
+        "syntax_error": null,
+        "complexity": 0,
+        "maintainability_index": 54.9,
+        "functions": 0,
+        "classes": 0,
+        "lines_of_code": 91
+    },
+    "risk": {
+        "risk_score": 10,
+        "risk_level": "LOW"
+    }
+}

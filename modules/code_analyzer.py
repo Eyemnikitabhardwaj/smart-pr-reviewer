@@ -1,4 +1,5 @@
 import ast
+import difflib
 from radon.complexity import cc_visit
 from radon.metrics import mi_visit
 
@@ -52,3 +53,23 @@ class CodeAnalyzer:
             result["syntax_error"] = f"Analysis failed: {str(error)}"
 
         return result
+        def detect_duplicate_functions(function_sources):
+    """
+    function_sources: dict {function_name: function_code_string}
+    Returns pairs of functions with high similarity (possible duplicates)
+    """
+    duplicates = []
+    names = list(function_sources.keys())
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            ratio = difflib.SequenceMatcher(
+                None, function_sources[names[i]], function_sources[names[j]]
+            ).ratio()
+            if ratio > 0.75:
+                duplicates.append({
+                    "function_1": names[i],
+                    "function_2": names[j],
+                    "similarity": round(ratio, 2),
+                    "suggestion": f"Consider reusing '{names[i]}' instead of duplicating logic in '{names[j]}'"
+                })
+    return duplicates

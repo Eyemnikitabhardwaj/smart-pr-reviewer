@@ -22,6 +22,8 @@ The application performs static code analysis, SQL query validation, risk assess
 - SELECT * detection
 - DELETE query without WHERE detection
 - Index review recommendations
+- N+1 query pattern detection (loop-based heuristic)
+- Duplicate function detection using sequence similarity matching
 - Automated risk score calculation
 - LOW, MEDIUM and HIGH risk classification
 - JSON review report generation
@@ -36,49 +38,61 @@ The application performs static code analysis, SQL query validation, risk assess
 - Git
 - JSON
 
+Token-efficient design: local static/heuristic checks run before any AI call, minimizing LLM token usage.
+
 ## 📂 Project Structure
 
-    smart-pr-reviewer/
-    │
-    ├── app.py
-    ├── config.py
-    ├── requirements.txt
-    ├── README.md
-    │
-    ├── modules/
-    │   ├── ai_engine.py
-    │   ├── code_analyzer.py
-    │   ├── git_reader.py
-    │   ├── git_validator.py
-    │   ├── report_generator.py
-    │   ├── risk_calculator.py
-    │   ├── similarity.py
-    │   └── sql_validator.py
-    │
-    ├── sample_repo/
-    │   └── sample_code.py
-    │
-    └── reports/
+```
+smart-pr-reviewer/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+├── README.md
+│
+├── modules/
+│   ├── ai_engine.py
+│   ├── code_analyzer.py
+│   ├── git_reader.py
+│   ├── git_validator.py
+│   ├── report_generator.py
+│   ├── risk_calculator.py
+│   ├── similarity.py
+│   └── sql_validator.py
+│
+├── sample_repo/
+│   └── sample_code.py
+│
+└── reports/
+```
 
 ## ⚙️ Installation
 
 Clone the repository:
 
-    git clone https://github.com/Eyemnikitabhardwaj/smart-pr-reviewer.git
+```
+git clone https://github.com/Eyemnikitabhardwaj/smart-pr-reviewer.git
+```
 
 Move into the project directory:
 
-    cd smart-pr-reviewer
+```
+cd smart-pr-reviewer
+```
 
 Install required dependencies:
 
-    pip install -r requirements.txt
+```
+pip install -r requirements.txt
+```
 
 ## ▶️ Run the Application
 
 Run the Streamlit application using:
 
-    python -m streamlit run app.py
+```
+python -m streamlit run app.py
+```
 
 The application will open in your web browser.
 
@@ -114,6 +128,7 @@ The SQL validator can identify issues such as:
 - SELECT * usage
 - DELETE queries without a WHERE clause
 - Queries requiring index review
+- Possible N+1 query patterns
 
 ### Risk Assessment
 
@@ -135,8 +150,6 @@ The report contains code analysis and risk assessment results.
 
 - GitHub API integration
 - Automated pull request analysis
-- N+1 query detection
-- Query similarity and reuse detection
 - Database schema and index analysis
 - Advanced AI-based code review
 - CI/CD pipeline integration

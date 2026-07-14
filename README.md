@@ -1,4 +1,6 @@
 # 🔍 Smart PR Reviewer
+<img width="652" height="658" alt="image" src="https://github.com/user-attachments/assets/a3937c06-2409-4d36-b0b8-da0d7998a85c" />
+
 
 An AI-assisted Git pull request and code review system built using Python and Streamlit.
 
@@ -163,3 +165,4 @@ GitHub: Eyemnikitabhardwaj
 ## 📌 Project Status
 
 Working MVP developed for automated code and SQL risk analysis.
+

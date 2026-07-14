@@ -1,7 +1,4 @@
 # 🔍 Smart PR Reviewer
-<img width="652" height="658" alt="image" src="https://github.com/user-attachments/assets/a3937c06-2409-4d36-b0b8-da0d7998a85c" />
-
-
 An AI-assisted Git pull request and code review system built using Python and Streamlit.
 
 ## 📌 Project Overview
@@ -74,6 +71,7 @@ Clone the repository:
 
 ```
 git clone https://github.com/Eyemnikitabhardwaj/smart-pr-reviewer.git
+
 ```
 
 Move into the project directory:
@@ -141,6 +139,11 @@ Risk levels:
 - LOW
 - MEDIUM
 - HIGH
+
+## Output
+<img width="517" height="617" alt="image" src="https://github.com/user-attachments/assets/15f82bfd-b07a-4152-bf86-160336539035" />
+<img width="442" height="401" alt="image" src="https://github.com/user-attachments/assets/4b2d5327-4bc0-439e-ad19-cbef4e0e722a" />
+
 
 ## 📄 Report Generation
 

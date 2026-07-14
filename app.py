@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 
 from config import Config
@@ -19,9 +20,7 @@ st.set_page_config(
 st.title("🔍 Smart PR Reviewer")
 st.write("AI-powered Git pull request and code review system")
 
-repo_path = st.text_input(
-    "Enter local Git repository path"
-)
+repo_path = st.text_input("Enter local Git repository path")
 
 if st.button("Analyze Repository"):
 
@@ -45,47 +44,70 @@ if st.button("Analyze Repository"):
             st.subheader("Current Branch")
             st.write(branch)
 
-            if not diff:
-                st.warning("No code changes detected.")
+            sample_file = os.path.join(
+                repo_path,
+                "sample_repo",
+                "sample_code.py"
+            )
 
+            if os.path.exists(sample_file):
+                with open(
+                    sample_file,
+                    "r",
+                    encoding="utf-8"
+                ) as file:
+                    code_content = file.read()
             else:
-                analyzer = CodeAnalyzer()
-                analysis = analyzer.analyze_code(open("app.py", "r", encoding="utf-8").read())
+                code_content = diff
 
-                sql_validator = SQLValidator()
-                sql_analysis = sql_validator.analyze(diff)
+            analyzer = CodeAnalyzer()
+            analysis = analyzer.analyze_code(code_content)
 
-                risk_calculator = RiskCalculator()
-                risk = risk_calculator.calculate_risk(analysis)
+            sql_validator = SQLValidator()
+            sql_analysis = sql_validator.analyze(code_content)
 
-                ai_engine = AIEngine(Config.GEMINI_API_KEY)
-                ai_review = ai_engine.review_code(
-                    diff,
-                    analysis
-                )
+            risk_input = analysis.copy()
+            risk_input["sql_issues"] = sql_analysis.get(
+                "issues",
+                []
+            )
 
-                st.subheader("Static Analysis")
-                st.json(analysis)
+            risk_calculator = RiskCalculator()
+            risk = risk_calculator.calculate_risk(risk_input)
 
-                st.subheader("SQL Analysis")
-                st.json(sql_analysis)
+            ai_engine = AIEngine(Config.GEMINI_API_KEY)
 
-                st.subheader("Risk Assessment")
-                st.json(risk)
+            ai_review = ai_engine.review_code(
+                code_content,
+                analysis
+            )
 
-                st.subheader("AI Review")
-                st.write(ai_review)
+            st.subheader("Static Analysis")
+            st.json(analysis)
 
-                report_generator = ReportGenerator(
-                    Config.REPORTS_DIR
-                )
+            st.subheader("SQL Analysis")
+            st.json(sql_analysis)
 
-                report_path = report_generator.generate_report(
-                    repo_path,
-                    analysis,
-                    risk
-                )
+            st.subheader("Risk Assessment")
+            st.json(risk)
 
-                st.success(
-                    f"Report generated: {report_path}"
-                ) 
+            st.subheader("AI Review")
+            st.write(ai_review)
+
+            report_generator = ReportGenerator(
+                Config.REPORTS_DIR
+            )
+
+            report_path = report_generator.generate_report(
+                repo_path,
+                {
+                    "static_analysis": analysis,
+                    "sql_analysis": sql_analysis,
+                    "ai_review": ai_review
+                },
+                risk
+            )
+
+            st.success(
+                f"Report generated: {report_path}"
+            ) 

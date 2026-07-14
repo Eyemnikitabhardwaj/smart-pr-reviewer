@@ -17,4 +17,9 @@ def calculate_total(items):
     for item in items:
         total += item
 
-    return total 
+    return total
+
+
+def delete_all_users(database):
+    query = "DELETE FROM users;"
+    return database.execute(query) 

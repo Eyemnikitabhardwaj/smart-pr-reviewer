@@ -1,0 +1,40 @@
+{
+    "repository": "C:\\Users\\hp\\OneDrive\\Desktop\\smart-pr-reviewer",
+    "generated_at": "2026-07-14T05:31:04.321882",
+    "analysis": {
+        "static_analysis": {
+            "syntax_valid": true,
+            "syntax_error": null,
+            "complexity": 5,
+            "maintainability_index": 67.09,
+            "functions": 4,
+            "classes": 0,
+            "lines_of_code": 25
+        },
+        "sql_analysis": {
+            "sql_detected": true,
+            "issues": [
+                {
+                    "type": "SELECT_STAR",
+                    "severity": "MEDIUM",
+                    "message": "Avoid SELECT *. Fetch only required columns."
+                },
+                {
+                    "type": "DELETE_WITHOUT_WHERE",
+                    "severity": "HIGH",
+                    "message": "DELETE query may be missing a WHERE clause."
+                },
+                {
+                    "type": "INDEX_REVIEW",
+                    "severity": "LOW",
+                    "message": "Review indexing for columns used in ORDER BY."
+                }
+            ]
+        },
+        "ai_review": "AI review skipped: API key is missing."
+    },
+    "risk": {
+        "risk_score": 85,
+        "risk_level": "HIGH"
+    }
+}

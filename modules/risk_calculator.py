@@ -2,12 +2,10 @@ class RiskCalculator:
     def calculate_risk(self, analysis):
         score = 0
 
-        complexity = analysis.get("complexity", 0)
-        maintainability = analysis.get("maintainability_index", 100)
-        syntax_valid = analysis.get("syntax_valid", True)
-
-        if not syntax_valid:
+        if not analysis.get("syntax_valid", True):
             score += 50
+
+        complexity = analysis.get("complexity", 0)
 
         if complexity > 20:
             score += 30
@@ -16,12 +14,27 @@ class RiskCalculator:
         elif complexity > 5:
             score += 10
 
+        maintainability = analysis.get(
+            "maintainability_index",
+            100
+        )
+
         if maintainability < 20:
             score += 30
         elif maintainability < 50:
             score += 20
         elif maintainability < 70:
             score += 10
+
+        for issue in analysis.get("sql_issues", []):
+            severity = issue.get("severity", "").upper()
+
+            if severity == "HIGH":
+                score += 50
+            elif severity == "MEDIUM":
+                score += 20
+            elif severity == "LOW":
+                score += 5
 
         score = min(score, 100)
 
@@ -35,4 +48,4 @@ class RiskCalculator:
         return {
             "risk_score": score,
             "risk_level": level
-        }
+        } 

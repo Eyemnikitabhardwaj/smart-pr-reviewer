@@ -143,6 +143,8 @@ Risk levels:
 ## Output
 <img width="517" height="617" alt="image" src="https://github.com/user-attachments/assets/15f82bfd-b07a-4152-bf86-160336539035" />
 <img width="442" height="401" alt="image" src="https://github.com/user-attachments/assets/4b2d5327-4bc0-439e-ad19-cbef4e0e722a" />
+<img width="578" height="313" alt="image" src="https://github.com/user-attachments/assets/1bfee706-dbea-4520-b73f-e9041ceccbfe" />
+
 
 
 ## 📄 Report Generation

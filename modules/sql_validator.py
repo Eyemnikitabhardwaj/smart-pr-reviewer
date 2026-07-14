@@ -73,3 +73,19 @@ class SQLValidator:
             "sql_detected": True,
             "issues": issues
         } 
+def detect_n_plus_one(code_lines):
+    """Heuristic: flags a query-like call found inside a loop block"""
+    issues = []
+    query_keywords = ["select", "query(", "execute(", ".filter(", ".get(", "cursor."]
+    for i, line in enumerate(code_lines):
+        stripped = line.strip().lower()
+        if stripped.startswith("for ") or stripped.startswith("while "):
+            for j in range(i + 1, min(i + 8, len(code_lines))):
+                if any(k in code_lines[j].lower() for k in query_keywords):
+                    issues.append({
+                        "line": j + 1,
+                        "issue": "Possible N+1 query pattern detected inside loop",
+                        "severity": "MEDIUM"
+                    })
+                    break
+    return issues

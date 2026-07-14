@@ -34,4 +34,3 @@ class GitReader:
 
     def get_current_branch(self):
         return self.repo.active_branch.name 
-    

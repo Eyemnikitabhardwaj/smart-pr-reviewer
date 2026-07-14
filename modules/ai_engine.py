@@ -59,4 +59,4 @@ Give short, practical suggestions.
             return data["candidates"][0]["content"]["parts"][0]["text"]
 
         except Exception as error:
-            return f"AI review failed: {str(error)}" 
+            return f"AI review failed: {str(error)}"  
